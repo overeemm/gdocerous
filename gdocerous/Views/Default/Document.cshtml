@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Document";
+}
+
+<h2>@ViewBag.Document.Title</h2>
+
+<textarea>
+    @ViewBag.DocumentHtml
+</textarea>
+
+@using(Html.BeginForm("Send", "Default", FormMethod.Post)) {
+    
+    <label for="tags">tags</label><input type="text" name="tags" id="tags" value="" />
+    <input type="hidden" name="document" value="@ViewBag.Document.Title" />
+    <input type="hidden" name="folder" value="@ViewBag.Folder" />
+    <input type="submit" value="post on posterous" />
+}

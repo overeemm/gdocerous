@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h2>Posterous From GDocs</h2>
+
+@using(Html.BeginForm("Login", "Default", FormMethod.Post)) {
+    
+    <input type="submit" value="authenticate with google" />
+} 
