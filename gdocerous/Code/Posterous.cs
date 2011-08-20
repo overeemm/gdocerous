@@ -35,7 +35,7 @@ namespace gdocerous.Code
                     msg.Attachments.Add(new Attachment(attachment.Value, attachment.Key));
                 }
 
-                msg.From = new MailAddress("overeemm@gmail.com", "gmail");
+                msg.From = new MailAddress("myemailaddress", "gmail");
                 msg.To.Add(new MailAddress("draft@posterous.com"));
                 msg.Subject = string.Format("{0} ((tag: {1}))", m_documenttitle, tags);
 
@@ -57,7 +57,7 @@ namespace gdocerous.Code
                            EnableSsl = true,
                            DeliveryMethod = SmtpDeliveryMethod.Network,
                            UseDefaultCredentials = false,
-                           Credentials = new System.Net.NetworkCredential("overeemm@gmail.com", "38Z!burg")
+                           Credentials = new System.Net.NetworkCredential("myemailaddress", "mypassword")
                        };
 
                 smtp.Send(msg);
