@@ -1,0 +1,12 @@
+﻿@using Google.Documents;
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+
+<ul>
+@foreach (Document doc in ViewBag.Folders.Entries) { 
+    <li>@Html.ActionLink(doc.Title, "Documents", new { folder = doc.Title })</li>
+}
+</ul>
