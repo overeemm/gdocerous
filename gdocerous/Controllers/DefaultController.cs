@@ -10,61 +10,75 @@ namespace gdocerous.Controllers
     public class DefaultController : Controller
     {
         public string GoogleAuthToken { get { return Session["token"] as string; } set { Session["token"] = value; } }
+        public bool IsValidSession { get { return !string.IsNullOrEmpty(GoogleAuthToken); } }
 
         public ActionResult Index()
         {
+            ViewBag.IsValidSession = false;
             return View();
         }
 
         [HttpPost]
         public ActionResult Login()
         {
-            return Redirect(new GoogleApi().GetAuthUrl());
+            return Redirect(GoogleApi.GetAuthUrl(Url.Action("Authenticate", "Default", null, Request.Url.Scheme)));
         }
 
         public ActionResult Authenticate()
         {
-            GoogleAuthToken = new GoogleApi().GetSessionToken((String)Request["token"]);
-            return RedirectToAction("Categories");
+            GoogleAuthToken = GoogleApi.GetSessionToken((String)Request["token"]);
+            return RedirectToAction("Folder");
         }
 
-        public ActionResult Categories()
+        public ActionResult Folder(string folder)
         {
-            ViewBag.Folders = new GoogleApi(GoogleAuthToken).GetFolders();
+            if(!IsValidSession)
+                return RedirectToAction("Index");
+
+            GoogleApi api = new GoogleApi(GoogleAuthToken);
+            dynamic folderobj = api.GetFolder(folder);
+
+            ViewBag.Folder = string.IsNullOrEmpty(folder) ? "root" : folderobj.Title;
+            ViewBag.Documents = api.GetFolderContent(folderobj);
+            ViewBag.IsValidSession = IsValidSession;
             return View();
         }
 
-        public ActionResult Documents(string folder)
+        public ActionResult Document(string document)
         {
-            ViewBag.Folder = folder;
-            ViewBag.Documents = new GoogleApi(GoogleAuthToken).GetDocuments(folder);
+            if (!IsValidSession)
+                return RedirectToAction("Index");
+
+            GoogleApi api = new GoogleApi(GoogleAuthToken);
+            dynamic documetnobj = api.GetDocument(document);
+
+            ViewBag.Document =  documetnobj.Title;
+            ViewBag.DocumentId = document;
+            ViewBag.DocumentHtml = api.GetHtmlContent(documetnobj);
+            ViewBag.IsValidSession = IsValidSession;
             return View();
         }
 
-        public ActionResult Document(string folder, string document)
+        public ActionResult About()
         {
-            GoogleApi docs = new GoogleApi(GoogleAuthToken);
-
-            ViewBag.Folder = folder;
-            ViewBag.Document = docs.GetDocument(folder, document);
-            ViewBag.DocumentHtml = docs.GetHtmlContent(ViewBag.Document);
-            return View();
-        }
-
-        public ActionResult Send()
-        {
+            ViewBag.IsValidSession = IsValidSession;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Send(string folder, string document, string tags)
+        public ActionResult Send(string document, string tags, string type, string receivecopy)
         {
-            using (Posterous post = new Posterous(new GoogleApi(GoogleAuthToken).GetDocumentContent(folder, document), document))
+            if (!IsValidSession)
+                return RedirectToAction("Index");
+
+            using (Posterous post = new Posterous(new GoogleApi(GoogleAuthToken).GetDocumentContent(document), document))
             {
-                post.Send(tags);
+                post.Send(tags, "private".Equals(type) ? PostType.Private :
+                                "public".Equals(type) ? PostType.Public : PostType.Draft
+                              , "1".Equals(receivecopy));
             }
 
-            return RedirectToAction("Categories");
+            return RedirectToAction("Folder");
         }
     }
 }

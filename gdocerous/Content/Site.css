@@ -1,68 +1,110 @@
-body
+body, html { padding: 0px; margin: 0px; }
+body, html, table, table tr { font-family: helvetica; font-size: 11pt; }
+
+#header { margin: 0px; top: 0px; left: 0px; right: 0px; background-color: #FFE175; height: 93px; }
+#header img { margin: 10px; float: left; }
+#header h2 { margin-top: 30px; margin-right: 30px; text-align: right; width: 600px; float: right; font-style: italic; }
+#header h4 { font-size: 10pt; margin-top: 0px; margin-right: 30px; text-align: right; width: 600px; float: right; font-style: italic; }
+#header h4 a, #header h4 a:visited, #footer#header h4 a:active, #header h4 a:hover { color: #454545; font-decoration: none; }
+
+#footer { position: absolute; left: 0px; right: 0px; bottom: 0px; float: none; height: 40px; background-color: #454545; color: #cdcdcd; padding-right: 5px; }
+#footer a, #footer a:visited, #footer a:active, #footer a:hover { color: #cdcdcd; font-decoration: none; font-weight: bold; }
+#footer span { line-height: 35px; float: right; margin-left: 5px; margin-right: 5px; }
+#footer span#copy { font-size: 9pt; float: left; } 
+
+div#body { color: #454545 }
+div#body a, div#body a:visited, div#body a:active, div#body a:hover { color: #454545; font-decoration: none; font-weight: bold; }
+
+div#about
 {
-    font-size: 75%;
-    font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
-    color: #232323;
-    background-color: #fff;
+    margin-left: 50px; margin-top: 50px; padding: 20px; float: left;
+    width: 400px; height: 150px; background-color: #ccc; 
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #454545;
+    -moz-box-shadow: 10px 10px 5px #454545;
+    -webkit-box-shadow: 10px 10px 5px #454545;
+    box-shadow: 10px 10px 5px #454545;
 }
 
-/* Styles for basic forms
------------------------------------------------------------*/
-
-fieldset 
+div#error
 {
-    border:1px solid #ddd;
-    padding:0 1.4em 1.4em 1.4em;
-    margin:0 0 1.5em 0;
+    margin-left: 50px; margin-top: 50px; padding: 20px; float: left;
+    width: 400px; height: 150px; background-color: #ccc; 
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #454545;
+    -moz-box-shadow: 10px 10px 5px #454545;
+    -webkit-box-shadow: 10px 10px 5px #454545;
+    box-shadow: 10px 10px 5px #454545;
 }
 
-legend 
+div#explain
 {
-    font-size:1.2em;
-    font-weight: bold;
+    margin-left: 100px; margin-top: 100px; padding: 20px; float: left;
+    width: 400px; height: 150px; background-color: #ccc; 
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #454545;
+    -moz-box-shadow: 10px 10px 5px #454545;
+    -webkit-box-shadow: 10px 10px 5px #454545;
+    box-shadow: 10px 10px 5px #454545;
 }
 
-textarea 
+input#authenticate 
 {
-    min-height: 75px;
+    margin-left: 100px; float: left; margin-top: 100px; padding: 0px; 
+    width: 440px; height: 190px; vertical-align: middle; text-align: center; 
+    font-size: 25pt; background-color: #FFe175; color: #454545;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #454545;
+    cursor: hand; cursor: pointer;
+    border: 1px solid #454545;
+    -moz-box-shadow: 10px 10px 5px #454545;
+    -webkit-box-shadow: 10px 10px 5px #454545;
+    box-shadow: 10px 10px 5px #454545;
 }
 
-.editor-label 
+ul { list-style-type: none; }
+
+li.folder { list-style-type: square; }
+li.document { list-style-type: none; }
+li.document:first-child { margin-top: 20px; }
+li.document span { color: #121212; font-size: 9pt; font-style: italic; display: block;}
+
+div#code  
 {
-    margin: 1em 0 0 0;
+    float: left; padding: 30px;  margin-right: 100px; 
+    height: 400px;  width: 500px; margin-top: 20px; margin-left: 20px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #454545;
+    cursor: hand; cursor: pointer;
+    border: 1px solid #454545;
+    -moz-box-shadow: 10px 10px 5px #454545;
+    -webkit-box-shadow: 10px 10px 5px #454545;
+    box-shadow: 10px 10px 5px #454545;
 }
+div#code div { height: 390px; overflow: auto; }
 
-.editor-field 
+div#form { float: left; width: 450px; margin-left: 20px; margin-top: 20px; }
+div#form input#tags { width: 200px; }
+div#form fieldset { border: 0px; padding: 0px; }
+div#form div { width: 100%; }
+div#form label.label { display: inline-block; width: 200px; }
+div#form input#post { margin-left: 205px; margin-top: 10px; }
+
+#post 
 {
-    margin:0.5em 0 0 0;
-}
-
-
-/* Styles for validation helpers
------------------------------------------------------------*/
-.field-validation-error
-{
-    color: #ff0000;
-}
-
-.field-validation-valid
-{
-    display: none;
-}
-
-.input-validation-error
-{
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
-}
-
-.validation-summary-errors
-{
-    font-weight: bold;
-    color: #ff0000;
-}
-
-.validation-summary-valid
-{
-    display: none;
+    width: 100px; height: 50px; vertical-align: middle; text-align: center; 
+    font-size: 25pt; background-color: #FFe175; color: #454545;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #454545;
+    cursor: hand; cursor: pointer;
+    border: 1px solid #454545;
+    -moz-box-shadow: 10px 10px 5px #454545;
+    -webkit-box-shadow: 10px 10px 5px #454545;
+    box-shadow: 10px 10px 5px #454545;
 }

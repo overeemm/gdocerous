@@ -1,17 +1,47 @@
 ﻿@{
-    ViewBag.Title = "Document";
+    ViewBag.Title = ViewBag.Document;
 }
+<link href="@Url.Content("~/Content/prettify.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/prettify.js")" type="text/javascript"></script>
 
-<h2>@ViewBag.Document.Title</h2>
+<div id="form">
+    @using (Html.BeginForm("Send", "Default", FormMethod.Post))
+    {
+        <div>
+            <label class="label" for="tags">tags (comma seperated)</label>
+            <input type="text" name="tags" id="tags" value="" />
+        </div>
+        <div>
+            <label class="label" >post as</label>
+            
+            <input type="radio" name="type" value="draft" id="draft" checked="checked"/>
+            <label class="radiolabel" for="draft">draft</label>
+            
+            <input type="radio" name="type" value="private" id="private" />
+            <label class="radiolabel" for="private">private</label>
+            
+            <input type="radio" name="type" value="public" id="public" />
+            <label class="radiolabel" for="public">public</label>
+        </div>
+        <div>
+            <label class="label" for="tags">do you want a copy?</label>
+            <input type="checkbox" name="receivecopy" id="receivecopy" value="1" />
+        </div>
+        <input type="hidden" name="document" value="@ViewBag.DocumentId" />
+        <input type="submit" value="post" id="post" />
+    }
+</div>
 
-<textarea>
-    @ViewBag.DocumentHtml
-</textarea>
+<div id="code">
+    <div>
+    <code class="prettyprint">
+        @ViewBag.DocumentHtml
+    </code>
+    </div>
+</div>
 
-@using(Html.BeginForm("Send", "Default", FormMethod.Post)) {
-    
-    <label for="tags">tags</label><input type="text" name="tags" id="tags" value="" />
-    <input type="hidden" name="document" value="@ViewBag.Document.Title" />
-    <input type="hidden" name="folder" value="@ViewBag.Folder" />
-    <input type="submit" value="post on posterous" />
-}
+<script type="text/javascript">
+    $(document).ready(function () {
+        prettyPrint();
+    });
+</script>

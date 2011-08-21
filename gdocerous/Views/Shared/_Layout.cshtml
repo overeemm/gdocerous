@@ -1,12 +1,30 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title | gdocerous</title>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
 </head>
 
 <body>
-    @RenderBody()
+    <div id="header">
+        <a href="@Url.Action("Index")"><img id="logo" src="@Url.Content("~/Content/images/logo.png")" alt="gdocerous" title="gdocerous" /></a>
+        <h2>@ViewBag.Title</h2>
+        @if (ViewBag.IsValidSession)
+        { 
+            <h4>@Html.ActionLink("back to the root", "Folder", new { folder = ""})</h4>
+        } 
+    </div>
+
+    <div id="body">
+        @RenderBody()
+    </div>
+
+    <div id="footer">
+        <span id="copy">&copy; 2011 michiel overeem</span>
+        <span id="about">@Html.ActionLink("about", "About")</span>
+        <span id="code"><a href="https://github.com/overeemm/gdocerous">code</a></span>
+        <span id="blog"><a href="http://blog.movereem.nl/">blog</a></span>
+    </div>
 </body>
 </html>

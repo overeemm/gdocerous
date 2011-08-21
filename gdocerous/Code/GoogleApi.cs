@@ -29,45 +29,60 @@ namespace gdocerous.Code
 
         private string Token { get { return m_token; } }
 
-        public string GetAuthUrl()
+        public static string GetAuthUrl(string returnurl)
         {
-            return AuthSubUtil.getRequestUrl("http://localhost:43560/Authenticate", "https://docs.google.com/feeds/ https://mail.google.com/", false, true);
+            return AuthSubUtil.getRequestUrl(returnurl, "https://docs.google.com/feeds/ https://mail.google.com/", false, true);
         }
 
-        public string GetSessionToken(string requesttoken)
+        public static string GetSessionToken(string requesttoken)
         {
             return AuthSubUtil.exchangeForSessionToken(requesttoken, null);
         }
 
-        public Feed<Document> GetFolders()
+        public IEnumerable<Document> GetFolderContent(Document folder)
         {
-            Feed<Document> folders = m_request.GetFolders();
-            return folders;
+            if (folder == null)
+                return GetRootFolders();
+            else
+                return GetSubFolderContent(folder);
         }
 
-        public Document GetFolder(string folder)
+        private IEnumerable<Document> GetRootFolders()
         {
-            Feed<Document> folders = GetFolders();
+            foreach (Document doc in m_request.GetFolders().Entries)
+                if (doc.ParentFolders.Count == 0)
+                    yield return doc;
+        }
 
-            foreach (Document d in folders.Entries)
-                if (d.Title == folder)
-                    return d;
+        public Document GetFolder(string folderresourceid)
+        {
+            if (string.IsNullOrEmpty(folderresourceid))
+                return null;
+
+            foreach (Document doc in m_request.GetFolders().Entries)
+                if (doc.ResourceId == "folder:" + folderresourceid)
+                    return doc;
+
             return null;
         }
 
-        public Feed<Document> GetDocuments(string folder)
+        internal Document GetDocument(string documentresourceid)
         {
-            return m_request.GetFolderContent(GetFolder(folder));
+            if (string.IsNullOrEmpty(documentresourceid))
+                return null;
+
+            foreach (Document doc in m_request.GetDocuments().Entries)
+                if (doc.ResourceId == "document:" + documentresourceid)
+                    return doc;
+
+            return null;
         }
 
-        public Document GetDocument(string folder, string document)
+        private IEnumerable<Document> GetSubFolderContent(Document folder)
         {
-            Feed<Document> documents = m_request.GetFolderContent(GetFolder(folder));
-
-            foreach (Document d in documents.Entries)
-                if (d.Title == document)
-                    return d;
-            return null;
+            foreach (Document doc in m_request.GetFolderContent(folder).Entries)
+                if (doc.ParentFolders.Count == folder.ParentFolders.Count + 1)
+                    yield return doc;
         }
 
         /// <summary>
@@ -115,9 +130,9 @@ namespace gdocerous.Code
             return m_request.Service.Query(new Uri(url));
         }
 
-        public Stream GetDocumentContent(string folder, string document)
+        public Stream GetDocumentContent(string document)
         {
-            return GetDocExportStream(GetDocument(folder, document), Document.DownloadType.zip);
+            return GetDocExportStream(GetDocument(document), Document.DownloadType.zip);
         }
     }
 }

@@ -10,6 +10,8 @@ using ICSharpCode.SharpZipLib;
 
 namespace gdocerous.Code
 {
+    public enum PostType { Draft, Private, Public }
+
     public class Posterous : IDisposable
     {
         private Stream m_zipfile;
@@ -26,7 +28,7 @@ namespace gdocerous.Code
             ExtractZipFile();
         }
 
-        public void Send(string tags)
+        public void Send(string tags, PostType type, bool receivecopy)
         {
             using (MailMessage msg = new MailMessage())
             {
@@ -37,7 +39,16 @@ namespace gdocerous.Code
                 }
 
                 msg.From = new MailAddress("email", "gmail");
-                msg.To.Add(new MailAddress("draft@posterous.com"));
+                if (type == PostType.Private)
+                    msg.To.Add(new MailAddress("private@posterous.com"));
+                else if (type == PostType.Draft)
+                    msg.To.Add(new MailAddress("draft@posterous.com"));
+                else if (type == PostType.Public)
+                    msg.To.Add(new MailAddress("posterous@posterous.com"));
+                
+                if (receivecopy)
+                    msg.Bcc.Add(new MailAddress("email"));
+
                 msg.Subject = string.Format("{0} ((tag: {1}))", m_documenttitle, tags);
 
                 AlternateView htmlView = AlternateView.CreateAlternateViewFromString(m_html, new System.Net.Mime.ContentType("text/html"));

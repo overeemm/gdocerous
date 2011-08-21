@@ -1,9 +1,18 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "post your google docs directly to posterous";
 }
-<h2>Posterous From GDocs</h2>
+
+<div id="explain">
+    Do you love <a href="http://posterous.com/" target="_blank">posterous</a> as much as I do? 
+    Are you storing your documents in the cloud with <a href="https://docs.google.com/">google docs</a>?
+    Want to combine the best of both worlds? Now you can! Just 
+    <ol>
+        <li>give <b>gdocerous</b> access to your google documents,</li>
+        <li>select the document that you want to post,</li>
+        <li>and sit back!</li>
+    </ol>
+</div>
 
 @using(Html.BeginForm("Login", "Default", FormMethod.Post)) {
-    
-    <input type="submit" value="authenticate with google" />
+    <input type="submit" value="authenticate with google" id="authenticate" />
 } 
