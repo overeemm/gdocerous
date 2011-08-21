@@ -33,9 +33,10 @@ namespace gdocerous.Code
                 foreach (KeyValuePair<string, Stream> attachment in m_attachments)
                 {
                     msg.Attachments.Add(new Attachment(attachment.Value, attachment.Key));
+                    m_html = m_html.Replace(attachment.Key, "cid:" + attachment.Key);
                 }
 
-                msg.From = new MailAddress("myemailaddress", "gmail");
+                msg.From = new MailAddress("email", "gmail");
                 msg.To.Add(new MailAddress("draft@posterous.com"));
                 msg.Subject = string.Format("{0} ((tag: {1}))", m_documenttitle, tags);
 
@@ -43,7 +44,7 @@ namespace gdocerous.Code
 
                 foreach (KeyValuePair<string, Stream> attachment in m_attachments)
                 {
-                    LinkedResource linkedRes = new LinkedResource(attachment.Value, "");
+                    LinkedResource linkedRes = new LinkedResource(attachment.Value, GetMediaType(attachment.Key));
                     linkedRes.ContentId = attachment.Key;
                     htmlView.LinkedResources.Add(linkedRes);
                 }
@@ -56,12 +57,28 @@ namespace gdocerous.Code
                            Port = 587,
                            EnableSsl = true,
                            DeliveryMethod = SmtpDeliveryMethod.Network,
-                           UseDefaultCredentials = false,
-                           Credentials = new System.Net.NetworkCredential("myemailaddress", "mypassword")
+                           //UseDefaultCredentials = false,
+                           Credentials = new System.Net.NetworkCredential("email", "yourpass")
                        };
 
                 smtp.Send(msg);
             }
+        }
+
+        private System.Net.Mime.ContentType GetMediaType(string p)
+        {
+            string filename = p.ToLowerInvariant();
+
+            if (filename.EndsWith(".jpg"))
+                return new System.Net.Mime.ContentType("image/jpeg");
+            else if (filename.EndsWith(".gif"))
+                return new System.Net.Mime.ContentType("image/gif");
+            else if (filename.EndsWith(".png"))
+                return new System.Net.Mime.ContentType("image/png");
+            else if (filename.EndsWith(".pdf"))
+                return new System.Net.Mime.ContentType("application/pdf");
+
+            return new System.Net.Mime.ContentType("application/octet-stream");
         }
 
         private void ExtractZipFile()
@@ -81,6 +98,7 @@ namespace gdocerous.Code
                         byte[] buffer = new byte[4096];
                         MemoryStream mstream = new MemoryStream();
                         StreamUtils.Copy(zipInputStream, mstream, buffer);
+                        mstream.Position = 0;
                         m_attachments.Add(entryFileName, mstream);
                     }
                     zipEntry = zipInputStream.GetNextEntry();

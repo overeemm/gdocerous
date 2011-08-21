@@ -64,7 +64,7 @@ namespace gdocerous.Controllers
                 post.Send(tags);
             }
 
-            return RedirectToAction("Send");
+            return RedirectToAction("Categories");
         }
     }
 }

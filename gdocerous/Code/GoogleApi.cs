@@ -31,7 +31,7 @@ namespace gdocerous.Code
 
         public string GetAuthUrl()
         {
-            return AuthSubUtil.getRequestUrl("http://localhost:27617/Authenticate", "https://docs.google.com/feeds/ https://mail.google.com/", false, true);
+            return AuthSubUtil.getRequestUrl("http://localhost:43560/Authenticate", "https://docs.google.com/feeds/ https://mail.google.com/", false, true);
         }
 
         public string GetSessionToken(string requesttoken)
