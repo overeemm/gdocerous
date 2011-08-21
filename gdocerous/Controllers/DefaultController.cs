@@ -27,6 +27,12 @@ namespace gdocerous.Controllers
         public ActionResult Authenticate()
         {
             GoogleAuthToken = GoogleApi.GetSessionToken((String)Request["token"]);
+
+            if (!new GoogleApi(GoogleAuthToken).AllowedAccount())
+            {
+                GoogleAuthToken = "";
+                throw new InvalidOperationException("gdocerous is not yet open for public.");
+            }
             return RedirectToAction("Folder");
         }
 
@@ -71,7 +77,10 @@ namespace gdocerous.Controllers
             if (!IsValidSession)
                 return RedirectToAction("Index");
 
-            using (Posterous post = new Posterous(new GoogleApi(GoogleAuthToken).GetDocumentContent(document), document))
+            GoogleApi api = new GoogleApi(GoogleAuthToken);
+            dynamic documetnobj = api.GetDocument(document);
+
+            using (Posterous post = new Posterous(api.GetDocumentContent(document), documetnobj.Title))
             {
                 post.Send(tags, "private".Equals(type) ? PostType.Private :
                                 "public".Equals(type) ? PostType.Public : PostType.Draft

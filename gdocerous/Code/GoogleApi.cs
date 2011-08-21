@@ -39,6 +39,11 @@ namespace gdocerous.Code
             return AuthSubUtil.exchangeForSessionToken(requesttoken, null);
         }
 
+        public bool AllowedAccount()
+        {
+            return m_request.GetFolders().AtomFeed.Authors[0].Email == "overeemm@gmail.com";
+        }
+
         public IEnumerable<Document> GetFolderContent(Document folder)
         {
             if (folder == null)

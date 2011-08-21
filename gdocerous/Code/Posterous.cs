@@ -38,7 +38,7 @@ namespace gdocerous.Code
                     m_html = m_html.Replace(attachment.Key, "cid:" + attachment.Key);
                 }
 
-                msg.From = new MailAddress("email", "gmail");
+                msg.From = new MailAddress("@gmail.com", "gmail");
                 if (type == PostType.Private)
                     msg.To.Add(new MailAddress("private@posterous.com"));
                 else if (type == PostType.Draft)
@@ -47,7 +47,7 @@ namespace gdocerous.Code
                     msg.To.Add(new MailAddress("posterous@posterous.com"));
                 
                 if (receivecopy)
-                    msg.Bcc.Add(new MailAddress("email"));
+                    msg.Bcc.Add(new MailAddress("@gmail.com"));
 
                 msg.Subject = string.Format("{0} ((tag: {1}))", m_documenttitle, tags);
 
@@ -69,7 +69,7 @@ namespace gdocerous.Code
                            EnableSsl = true,
                            DeliveryMethod = SmtpDeliveryMethod.Network,
                            //UseDefaultCredentials = false,
-                           Credentials = new System.Net.NetworkCredential("email", "yourpass")
+                           Credentials = new System.Net.NetworkCredential("@gmail.com", "pass")
                        };
 
                 smtp.Send(msg);
