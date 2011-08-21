@@ -1,0 +1,23 @@
+﻿@using Google.Documents;
+@{
+    ViewBag.Title = "Contents for " + ViewBag.Folder;
+}
+
+<ul>
+@foreach (Document doc in ViewBag.Documents)
+{
+    if (doc.Type == Document.DocumentType.Folder)
+    {
+        <li class="folder">@Html.ActionLink(doc.Title, "Folder", new { folder = doc.ResourceId.Substring(7) })</li>
+    }
+}
+</ul>
+<ul>
+@foreach (Document doc in ViewBag.Documents)
+{
+    if (doc.Type == Document.DocumentType.Document)
+    { 
+        <li class="document">@Html.ActionLink(doc.Title, "Document", new { document = doc.ResourceId.Substring(9) }) <span>updated: @doc.Updated.ToString()</span></li>
+    }
+}
+</ul>
