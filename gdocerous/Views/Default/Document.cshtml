@@ -27,6 +27,14 @@
             <label class="label" for="tags">do you want a copy?</label>
             <input type="checkbox" name="receivecopy" id="receivecopy" value="1" />
         </div>
+        <div>
+            <label class="label">sender address</label>
+            <span>@ViewBag.EmailAddress</span>
+        </div>
+        <div>
+            <label class="label" for="tags">did you register this address in posterous?</label>
+            <input type="checkbox" name="emailaddressregistered" id="emailaddressregistered" value="1" />
+        </div>
         <input type="hidden" name="document" value="@ViewBag.DocumentId" />
         <input type="submit" value="post" id="post" />
     }

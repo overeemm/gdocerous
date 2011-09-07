@@ -7,12 +7,16 @@ using gdocerous.Code;
 
 namespace gdocerous.Controllers
 {
-    public class DefaultController : Controller
+    [RequireHttps]
+    public class DefaultController : MiniProfiledController
     {
-        public string GoogleAuthToken { get { return Session["token"] as string; } set { Session["token"] = value; } }
-        public bool IsValidSession { get { return !string.IsNullOrEmpty(GoogleAuthToken); } }
-
         public ActionResult Index()
+        {
+            ViewBag.IsValidSession = false;
+            return View();
+        }
+
+        public ActionResult TempIndex()
         {
             ViewBag.IsValidSession = false;
             return View();
@@ -21,70 +25,86 @@ namespace gdocerous.Controllers
         [HttpPost]
         public ActionResult Login()
         {
-            return Redirect(GoogleApi.GetAuthUrl(Url.Action("Authenticate", "Default", null, Request.Url.Scheme)));
+            return Redirect(GoogleDocsRepository.GetAuthUrl());
         }
 
-        public ActionResult Authenticate()
+        public ActionResult AuthCallback(string error, string code)
         {
-            GoogleAuthToken = GoogleApi.GetSessionToken((String)Request["token"]);
-
-            if (!new GoogleApi(GoogleAuthToken).AllowedAccount())
+            if (!string.IsNullOrEmpty(error))
             {
-                GoogleAuthToken = "";
-                throw new InvalidOperationException("gdocerous is not yet open for public.");
+                return RedirectToAction("TempIndex");
             }
-            return RedirectToAction("Folder");
+            if (!string.IsNullOrEmpty(code))
+            {
+                Session.SetGoogleDocsRepos(new GoogleDocsRepository(code));
+
+                //if (!Session.GetGoogleDocsRepos().AllowedAccount())
+                //{
+                //    Session.SetGoogleDocsRepos(null);
+                //    throw new InvalidOperationException("gdocerous is not yet open for public.");
+                //}
+
+                return RedirectToAction("Folder");
+            }
+
+            return RedirectToAction("TempIndex");
         }
 
         public ActionResult Folder(string folder)
         {
-            if(!IsValidSession)
+            if (!Session.IsValidSession())
                 return RedirectToAction("Index");
 
-            GoogleApi api = new GoogleApi(GoogleAuthToken);
-            dynamic folderobj = api.GetFolder(folder);
+            GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs();
+            dynamic folderobj = docs.GetFolder(folder);
 
             ViewBag.Folder = string.IsNullOrEmpty(folder) ? "root" : folderobj.Title;
-            ViewBag.Documents = api.GetFolderContent(folderobj);
-            ViewBag.IsValidSession = IsValidSession;
+            ViewBag.Documents = docs.GetFolderContent(folderobj);
+            ViewBag.IsValidSession = true;
             return View();
         }
 
         public ActionResult Document(string document)
         {
-            if (!IsValidSession)
+            if (!Session.IsValidSession())
                 return RedirectToAction("Index");
 
-            GoogleApi api = new GoogleApi(GoogleAuthToken);
-            dynamic documetnobj = api.GetDocument(document);
+            GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs();
+            dynamic documentobj = docs.GetDocument(document);
 
-            ViewBag.Document =  documetnobj.Title;
+            ViewBag.Document = documentobj.Title;
             ViewBag.DocumentId = document;
-            ViewBag.DocumentHtml = api.GetHtmlContent(documetnobj);
-            ViewBag.IsValidSession = IsValidSession;
+            ViewBag.DocumentHtml = docs.GetHtmlContent(documentobj);
+            ViewBag.EmailAddress = docs.GetgdocerousMailAddress();
+            ViewBag.IsValidSession = true;
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.IsValidSession = IsValidSession;
+            ViewBag.IsValidSession = Session.IsValidSession();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Send(string document, string tags, string type, string receivecopy)
+        public ActionResult Send(string document, string tags, string type, string receivecopy, string emailaddressregistered)
         {
-            if (!IsValidSession)
+            if (!Session.IsValidSession())
                 return RedirectToAction("Index");
 
-            GoogleApi api = new GoogleApi(GoogleAuthToken);
-            dynamic documetnobj = api.GetDocument(document);
+            if (!"1".Equals(emailaddressregistered))
+                return RedirectToAction("Folder");
 
-            using (Posterous post = new Posterous(api.GetDocumentContent(document), documetnobj.Title))
+            using (GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs())
             {
-                post.Send(tags, "private".Equals(type) ? PostType.Private :
-                                "public".Equals(type) ? PostType.Public : PostType.Draft
-                              , "1".Equals(receivecopy));
+                dynamic documentobj = docs.GetDocument(document);
+
+                using (PosterousRepository post = new PosterousRepository(docs.Email, docs.GetgdocerousMailAddress(), Session.GetGoogleDocsRepos().OAuthToken, docs.GetDocumentContent(document), documentobj.Title))
+                {
+                    post.Send(tags, "private".Equals(type) ? PostType.Private :
+                                    "public".Equals(type) ? PostType.Public : PostType.Draft
+                                  , "1".Equals(receivecopy));
+                }
             }
 
             return RedirectToAction("Folder");
