@@ -12,18 +12,26 @@ namespace gdocerous.Code
 {
     public enum PostType { Draft, Private, Public }
 
-    public class Posterous : IDisposable
+    public class PosterousRepository : IDisposable
     {
         private Stream m_zipfile;
         private string m_html;
         private Dictionary<string, Stream> m_attachments;
         private string m_documenttitle;
 
-        public Posterous(Stream htmlzipfile, string documenttitle)
+        private string m_email;
+        private string m_senderemail;
+        private string m_oauthtoken;
+
+        public PosterousRepository(string email, string senderemail, string oauthtoken, Stream htmlzipfile, string documenttitle)
         {
             m_documenttitle = documenttitle;
             m_zipfile = htmlzipfile;
             m_attachments = new Dictionary<string, Stream>();
+
+            m_email = email;
+            m_senderemail = senderemail;
+            m_oauthtoken = oauthtoken;
 
             ExtractZipFile();
         }
@@ -38,16 +46,18 @@ namespace gdocerous.Code
                     m_html = m_html.Replace(attachment.Key, "cid:" + attachment.Key);
                 }
 
-                msg.From = new MailAddress("@gmail.com", "gmail");
+                msg.From = new MailAddress(m_senderemail, "gdocerous");
+                msg.ReplyToList.Add(new MailAddress(m_email));
+
                 if (type == PostType.Private)
                     msg.To.Add(new MailAddress("private@posterous.com"));
                 else if (type == PostType.Draft)
                     msg.To.Add(new MailAddress("draft@posterous.com"));
                 else if (type == PostType.Public)
-                    msg.To.Add(new MailAddress("posterous@posterous.com"));
+                    msg.To.Add(new MailAddress("post@posterous.com"));
                 
                 if (receivecopy)
-                    msg.Bcc.Add(new MailAddress("@gmail.com"));
+                    msg.Bcc.Add(new MailAddress(m_email));
 
                 msg.Subject = string.Format("{0} ((tag: {1}))", m_documenttitle, tags);
 
@@ -64,12 +74,9 @@ namespace gdocerous.Code
                 
                 var smtp = new SmtpClient
                        {
-                           Host = "smtp.gmail.com",
-                           Port = 587,
-                           EnableSsl = true,
-                           DeliveryMethod = SmtpDeliveryMethod.Network,
-                           //UseDefaultCredentials = false,
-                           Credentials = new System.Net.NetworkCredential("@gmail.com", "pass")
+                           Host = "84.243.195.170",
+                           Port = 25,
+                           DeliveryMethod = SmtpDeliveryMethod.Network
                        };
 
                 smtp.Send(msg);

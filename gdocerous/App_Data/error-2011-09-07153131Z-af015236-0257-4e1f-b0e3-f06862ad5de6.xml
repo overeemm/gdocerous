@@ -1,0 +1,162 @@
+﻿<error errorId="af015236-0257-4e1f-b0e3-f06862ad5de6" host="WS118" type="System.Web.HttpException" message="Session state is not available in this context." source="System.Web" detail="System.Web.HttpException (0x80004005): Session state is not available in this context.&#xD;&#xA;   at System.Web.HttpApplication.get_Session()&#xD;&#xA;   at gdocerous.MvcApplication.Application_AuthenticateRequest(Object sender, EventArgs e) in I:\Michiel\github\gdocerous\gdocerous\Global.asax.cs:line 59&#xD;&#xA;   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()&#xD;&#xA;   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)" user="SEDOMAIN\michiel" time="2011-09-07T15:31:31.3462941Z" statusCode="500">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:Keep-Alive&#xD;&#xA;HTTP_ACCEPT:application/javascript, */*;q=0.8&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:nl-NL&#xD;&#xA;HTTP_COOKIE:style=A&#xD;&#xA;HTTP_HOST:localhost:15211&#xD;&#xA;HTTP_REFERER:http://localhost:15211/&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: Keep-Alive&#xD;&#xA;Accept: application/javascript, */*;q=0.8&#xD;&#xA;Accept-Encoding: gzip, deflate&#xD;&#xA;Accept-Language: nl-NL&#xD;&#xA;Cookie: style=A&#xD;&#xA;Host: localhost:15211&#xD;&#xA;Referer: http://localhost:15211/&#xD;&#xA;User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="I:\Michiel\github\gdocerous\gdocerous\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="NTLM" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="SEDOMAIN\michiel" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="SEDOMAIN\michiel" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="SEDOMAIN\michiel" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="" />
+    </item>
+    <item name="HTTPS">
+      <value string="" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/mini-profiler-jquery.1.6.2.js" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="I:\Michiel\github\gdocerous\gdocerous\mini-profiler-jquery.1.6.2.js" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/mini-profiler-jquery.1.6.2.js" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="15211" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="" />
+    </item>
+    <item name="URL">
+      <value string="/mini-profiler-jquery.1.6.2.js" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="Keep-Alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="application/javascript, */*;q=0.8" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="nl-NL" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="style=A" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:15211" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:15211/" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)" />
+    </item>
+  </serverVariables>
+  <cookies>
+    <item name="style">
+      <value string="A" />
+    </item>
+  </cookies>
+</error>
