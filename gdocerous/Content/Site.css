@@ -11,8 +11,10 @@ body, html, table, table tr { font-family: helvetica; font-size: 11pt; }
 
 #footer { position: absolute; left: 0px; right: 0px; bottom: 0px; float: none; height: 40px; background-color: #454545; color: #cdcdcd; padding-right: 5px; }
 #footer a, #footer a:visited, #footer a:active, #footer a:hover { color: #cdcdcd; font-size: 8pt; text-decoration: none; font-weight: bold; }
-#footer span { line-height: 35px; float: right; margin-left: 5px; margin-right: 5px; }
-#footer span#copy { font-size: 9pt; float: left; } 
+#footer span { line-height: 35px; float: left; margin-left: 0px; margin-right: 5px; font-size: 8pt }
+#footer span#copy { font-size: 8pt; float: left; margin-left: 5px; } 
+#footer span:before { content: " | "; }
+#footer span#copy:before { content: ""; }
 
 div#body { color: #454545 }
 div#body a, div#body a:visited, div#body a:active, div#body a:hover { color: #454545; text-decoration: none; font-weight: bold; }

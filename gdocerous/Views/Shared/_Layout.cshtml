@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using gdocerous.Code
+@using System.Reflection
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title | gdocerous</title>
@@ -38,6 +41,7 @@
 
     <div id="footer">
         <span id="copy">&copy; 2011 michiel overeem</span>
+        <span id="version">build @Assembly.GetAssembly(typeof(GoogleDocs)).GetName().Version.ToString()</span>
         <span id="about">@Html.ActionLink("about", "About")</span>
         <span id="code"><a href="https://github.com/overeemm/gdocerous">code</a></span>
         <span id="blog"><a href="http://blog.movereem.nl/">blog</a></span>
