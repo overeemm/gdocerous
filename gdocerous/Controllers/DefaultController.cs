@@ -7,7 +7,7 @@ using gdocerous.Code;
 
 namespace gdocerous.Controllers
 {
-    //[RequireHttps]
+    [RequireHttps]
     public class DefaultController : MiniProfiledController
     {
         public ActionResult Index()
