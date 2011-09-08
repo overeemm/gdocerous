@@ -55,7 +55,7 @@ namespace gdocerous.Code
                     msg.To.Add(new MailAddress("draft@posterous.com"));
                 else if (type == PostType.Public)
                     msg.To.Add(new MailAddress("post@posterous.com"));
-                
+
                 if (receivecopy)
                     msg.Bcc.Add(new MailAddress(m_email));
 
@@ -71,15 +71,11 @@ namespace gdocerous.Code
                 }
 
                 msg.AlternateViews.Add(htmlView);
-                
-                var smtp = new SmtpClient
-                       {
-                           Host = "84.243.195.170",
-                           Port = 25,
-                           DeliveryMethod = SmtpDeliveryMethod.Network
-                       };
 
-                smtp.Send(msg);
+                using (var smtp = new SmtpClient())
+                {
+                    smtp.Send(msg);
+                }
             }
         }
 
