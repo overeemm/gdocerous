@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Register posterous sender";
+}
+
+<div class="text" id="posterousaddress">
+    <span class="gdocerous">gdocerous</span> uses the following e-mail address to submit your post. 
+    You will have to register this in your <a href="http://posterous.com/" target="_blank">posterous</a> account first.
+
+    <span class="email">@ViewBag.EmailAddress</span>
+</div>
+
+@Html.ActionLink("Done, continue please!", "Folder", new { }, new { Id = "posterousaddress-done" })

@@ -1,40 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="I:\Michiel\github\gdocerousrelease\" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
-    <file relUrl="Views/Default/About.cshtml" publishTime="08/21/2011 19:09:20" />
-    <file relUrl="bin/gdocerous.pdb" publishTime="09/07/2011 20:55:35" />
+    <file relUrl="Views/Default/About.cshtml" publishTime="09/08/2011 10:37:36" />
+    <file relUrl="bin/gdocerous.pdb" publishTime="09/08/2011 10:01:42" />
+    <file relUrl="Views/Default/comingsoon.cshtml" publishTime="08/23/2011 18:55:26" />
+    <file relUrl="Content/images/logo.png" publishTime="08/21/2011 15:11:45" />
     <file relUrl="Scripts/jquery-1.4.4-vsdoc.js" publishTime="08/19/2011 20:57:33" />
     <file relUrl="Global.asax" publishTime="08/20/2011 22:19:51" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="08/19/2011 20:57:33" />
     <file relUrl="Scripts/prettify.js" publishTime="06/02/2011 01:38:45" />
-    <file relUrl="Views/Default/TempIndex.cshtml" publishTime="09/07/2011 16:53:45" />
-    <file relUrl="bin/MvcMiniProfiler.pdb" publishTime="09/06/2011 10:52:53" />
     <file relUrl="bin/Google.GData.Extensions.dll" publishTime="09/06/2011 10:53:54" />
-    <file relUrl="Content/images/logo.png" publishTime="08/21/2011 15:11:45" />
-    <file relUrl="Views/Error/Http404.cshtml" publishTime="09/06/2011 12:17:20" />
-    <file relUrl="Views/Shared/Error.cshtml" publishTime="09/06/2011 21:37:39" />
-    <file relUrl="Views/Default/Folder.cshtml" publishTime="08/21/2011 16:59:30" />
-    <file relUrl="bin/Google.GData.Documents.dll" publishTime="09/06/2011 10:53:52" />
-    <file relUrl="bin/gdocerous.dll" publishTime="09/07/2011 20:55:36" />
+    <file relUrl="bin/MvcMiniProfiler.xml" publishTime="09/06/2011 10:52:53" />
+    <file relUrl="Views/Error/Http404.cshtml" publishTime="09/08/2011 10:38:00" />
+    <file relUrl="Views/Shared/Error.cshtml" publishTime="09/08/2011 10:37:41" />
+    <file relUrl="Scripts/jquery-1.4.4.js" publishTime="08/19/2011 20:57:33" />
+    <file relUrl="bin/Elmah.dll" publishTime="09/06/2011 10:52:39" />
+    <file relUrl="bin/gdocerous.dll" publishTime="09/08/2011 10:01:43" />
     <file relUrl="bin/ICSharpCode.SharpZipLib.dll" publishTime="09/06/2011 10:54:28" />
     <file relUrl="packages.config" publishTime="09/06/2011 10:54:29" />
     <file relUrl="Scripts/jquery-1.4.4.min.js" publishTime="08/19/2011 20:57:33" />
     <file relUrl="Content/images/homescreen.png" publishTime="08/23/2011 18:45:22" />
-    <file relUrl="Scripts/jquery-1.4.4.js" publishTime="08/19/2011 20:57:33" />
-    <file relUrl="bin/MvcMiniProfiler.xml" publishTime="09/06/2011 10:52:53" />
+    <file relUrl="Views/Default/Folder.cshtml" publishTime="09/08/2011 10:38:12" />
     <file relUrl="Content/images/googlelogo.png" publishTime="08/23/2011 19:03:14" />
-    <file relUrl="bin/MvcMiniProfiler.dll" publishTime="09/06/2011 10:52:53" />
     <file relUrl="bin/Google.GData.AccessControl.DLL" publishTime="09/06/2011 10:53:56" />
     <file relUrl="Content/prettify.css" publishTime="06/02/2011 01:38:39" />
-    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="09/07/2011 17:30:19" />
-    <file relUrl="Views/Error/General.cshtml" publishTime="09/06/2011 21:37:47" />
-    <file relUrl="Views/Default/Document.cshtml" publishTime="08/21/2011 18:45:23" />
+    <file relUrl="bin/MvcMiniProfiler.dll" publishTime="09/06/2011 10:52:53" />
+    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="09/07/2011 22:27:00" />
+    <file relUrl="Views/Error/General.cshtml" publishTime="09/08/2011 10:37:47" />
+    <file relUrl="Views/Default/Document.cshtml" publishTime="09/08/2011 10:47:06" />
     <file relUrl="bin/Google.GData.Client.dll" publishTime="09/06/2011 10:53:50" />
-    <file relUrl="Web.config" publishTime="09/07/2011 19:28:49" />
-    <file relUrl="Content/Site.css" publishTime="09/07/2011 16:54:52" />
+    <file relUrl="bin/MvcMiniProfiler.pdb" publishTime="09/06/2011 10:52:53" />
+    <file relUrl="bin/Google.GData.Documents.dll" publishTime="09/06/2011 10:53:52" />
+    <file relUrl="Content/Site.css" publishTime="09/08/2011 10:52:27" />
+    <file relUrl="Views/Default/PosterousSender.cshtml" publishTime="09/08/2011 10:41:47" />
     <file relUrl="favicon.ico" publishTime="08/21/2011 14:57:10" />
-    <file relUrl="Views/Default/Index.cshtml" publishTime="08/23/2011 18:55:26" />
+    <file relUrl="Views/Default/Index.cshtml" publishTime="09/08/2011 10:37:28" />
     <file relUrl="Views/Web.config" publishTime="08/19/2011 20:57:33" />
-    <file relUrl="bin/Elmah.dll" publishTime="09/06/2011 10:52:39" />
+    <file relUrl="Web.config" publishTime="09/07/2011 19:28:49" />
   </publishProfile>
 </publishData>

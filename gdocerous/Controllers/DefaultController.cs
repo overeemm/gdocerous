@@ -16,12 +16,6 @@ namespace gdocerous.Controllers
             return View();
         }
 
-        public ActionResult TempIndex()
-        {
-            ViewBag.IsValidSession = false;
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Login()
         {
@@ -32,22 +26,27 @@ namespace gdocerous.Controllers
         {
             if (!string.IsNullOrEmpty(error))
             {
-                return RedirectToAction("TempIndex");
+                return RedirectToAction("Index");
             }
             if (!string.IsNullOrEmpty(code))
             {
                 Session.SetGoogleDocsRepos(new GoogleDocsRepository(code));
 
-                //if (!Session.GetGoogleDocsRepos().AllowedAccount())
-                //{
-                //    Session.SetGoogleDocsRepos(null);
-                //    throw new InvalidOperationException("gdocerous is not yet open for public.");
-                //}
-
-                return RedirectToAction("Folder");
+                return RedirectToAction("PosterousSender");
             }
 
-            return RedirectToAction("TempIndex");
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult PosterousSender()
+        {
+            if (!Session.IsValidSession())
+                return RedirectToAction("Index");
+
+            GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs();
+            ViewBag.EmailAddress = docs.GetgdocerousMailAddress();
+
+            return View();
         }
 
         public ActionResult Folder(string folder)
@@ -87,13 +86,10 @@ namespace gdocerous.Controllers
         }
 
         [HttpPost]
-        public ActionResult Send(string document, string tags, string type, string receivecopy, string emailaddressregistered)
+        public ActionResult Send(string document, string tags, string type, string receivecopy)
         {
             if (!Session.IsValidSession())
                 return RedirectToAction("Index");
-
-            if (!"1".Equals(emailaddressregistered))
-                return RedirectToAction("Folder");
 
             using (GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs())
             {

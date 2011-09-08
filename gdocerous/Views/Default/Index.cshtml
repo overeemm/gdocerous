@@ -1,8 +1,29 @@
 ﻿@{
     ViewBag.Title = "post your google docs directly to posterous";
-    ViewBag.bodyclass = "comingsoon";
 }
 
-<div id="comingsoon">
-    <p>coming soon...</p>
+<div class="text" id="explain">
+    Do you love <a href="http://posterous.com/" target="_blank">posterous</a> as much as I do? 
+    Are you storing your documents in the cloud with <a href="https://docs.google.com/">google docs</a>?
+    <span class="outstand">Want to combine the best of both worlds?</span> Now you can! Just 
+    <ol>
+        <li>give <span class="gdocerous">gdocerous</span> access to your google documents,</li>
+        <li>select the document that you want to post,</li>
+        <li>and sit back!</li>
+    </ol>
+</div>
+
+@using(Html.BeginForm("Login", "Default", FormMethod.Post)) {
+    <input type="submit" value="authenticate with google" id="authenticate" />
+} 
+
+<div class="text" id="depth">
+    <p><span class="gdocerous">gdocerous</span> enables to you to select a document from <a href="https://docs.google.com/">google docs</a> and e-mail that to the wonderful <a href="http://posterous.com/" target="_blank">posterous</a> service.
+    Images and other attachments are preserved. You can even submit it as draft first, or make it a private post.</p>
+    
+    <p>We will generate a sender e-mail based on the e-mail address that you use for <a href="https://docs.google.com/">google docs</a>. 
+    You will have to register this e-mail address in <a href="http://posterous.com/" target="_blank">posterous</a> and ready you are.</p>
+
+    <p>And don't worry, we will use the right reply-to header such that we will not receive the <a href="http://posterous.com/" target="_blank">posterous</a> reply.
+    <span class="gdocerous">gdocerous</span> does not store any information about your documents, access is gained through <a href="http://code.google.com/apis/accounts/docs/OAuth2.html">OAuth 2.0</a> per session.</p>
 </div>
