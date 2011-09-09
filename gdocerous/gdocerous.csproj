@@ -86,6 +86,7 @@
     <Compile Include="Code\GoogleDocsRepository.cs" />
     <Compile Include="Code\GoogleOAuthSession.cs" />
     <Compile Include="Code\PosterousRepository.cs" />
+    <Compile Include="Code\RequiresValidSessionAttribute.cs" />
     <Compile Include="Controllers\MiniProfiledController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />

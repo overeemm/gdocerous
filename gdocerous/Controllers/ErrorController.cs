@@ -16,7 +16,7 @@ namespace gdocerous.Controllers
 
         public ActionResult Http404()
         {
-            return View("404");
+            return View();
         }
     }
 }

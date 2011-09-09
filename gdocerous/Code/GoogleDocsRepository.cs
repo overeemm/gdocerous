@@ -66,37 +66,13 @@ namespace gdocerous.Code
         {
             using (MiniProfiler.Current.Step("GoogleDocsRepository.GetSessionToken"))
             {
-                string postcontents = string.Format("code={0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type=authorization_code"
-                                    , System.Web.HttpUtility.UrlEncode(code)
-                                    , System.Web.HttpUtility.UrlEncode(clientid)
-                                    , System.Web.HttpUtility.UrlEncode(clientsecret)
-                                    , System.Web.HttpUtility.UrlEncode(redirect_url));
-
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://accounts.google.com/o/oauth2/token");
-                request.Method = "POST";
-
-                byte[] postcontentsArray = Encoding.UTF8.GetBytes(postcontents);
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.ContentLength = postcontentsArray.Length;
-
-                using (Stream requestStream = request.GetRequestStream())
-                {
-                    requestStream.Write(postcontentsArray, 0, postcontentsArray.Length);
-                    requestStream.Close();
-
-                    WebResponse response = request.GetResponse();
-
-                    using (Stream responseStream = response.GetResponseStream())
-                    using (StreamReader reader = new StreamReader(responseStream))
-                    {
-                        string responseFromServer = reader.ReadToEnd();
-                        reader.Close();
-                        responseStream.Close();
-                        response.Close();
-
-                        return ExtractToken(responseFromServer);
-                    }
-                }
+                return "https://accounts.google.com/o/oauth2/token"
+                        .Post(string.Format("code={0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type=authorization_code"
+                                            , System.Web.HttpUtility.UrlEncode(code)
+                                            , System.Web.HttpUtility.UrlEncode(clientid)
+                                            , System.Web.HttpUtility.UrlEncode(clientsecret)
+                                            , System.Web.HttpUtility.UrlEncode(redirect_url)))
+                        .ExtractToken();
             }
         }
 
@@ -104,47 +80,12 @@ namespace gdocerous.Code
         {
             using (MiniProfiler.Current.Step("GoogleDocsRepository.RefreshToken"))
             {
-                string postcontents = string.Format("client_id={1}&client_secret={2}&refresh_token={0}&grant_type=refresh_token"
-                                    , System.Web.HttpUtility.UrlEncode(code.refresh_token)
-                                    , System.Web.HttpUtility.UrlEncode(clientid)
-                                    , System.Web.HttpUtility.UrlEncode(clientsecret));
-
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://accounts.google.com/o/oauth2/token");
-                request.Method = "POST";
-
-                byte[] postcontentsArray = Encoding.UTF8.GetBytes(postcontents);
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.ContentLength = postcontentsArray.Length;
-
-                using (Stream requestStream = request.GetRequestStream())
-                {
-                    requestStream.Write(postcontentsArray, 0, postcontentsArray.Length);
-                    requestStream.Close();
-
-                    WebResponse response = request.GetResponse();
-
-                    using (Stream responseStream = response.GetResponseStream())
-                    using (StreamReader reader = new StreamReader(responseStream))
-                    {
-                        string responseFromServer = reader.ReadToEnd();
-                        reader.Close();
-                        responseStream.Close();
-                        response.Close();
-
-                        return ExtractToken(responseFromServer);
-                    }
-                }
-            }
-        }
-
-        private static GoogleOAuthSession ExtractToken(string tokenjson)
-        {
-            using (MemoryStream memstream = new MemoryStream(Encoding.Unicode.GetBytes(tokenjson)))
-            {
-                var serializer = new DataContractJsonSerializer(typeof(GoogleOAuthSession));
-                GoogleOAuthSession returnobj = serializer.ReadObject(memstream) as GoogleOAuthSession;
-                memstream.Close();
-                return returnobj;
+                return "https://accounts.google.com/o/oauth2/token"
+                        .Post(string.Format("client_id={1}&client_secret={2}&refresh_token={0}&grant_type=refresh_token"
+                                            , System.Web.HttpUtility.UrlEncode(code.refresh_token)
+                                            , System.Web.HttpUtility.UrlEncode(clientid)
+                                            , System.Web.HttpUtility.UrlEncode(clientsecret)))
+                        .ExtractToken();
             }
         }
 

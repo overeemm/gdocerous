@@ -38,24 +38,20 @@ namespace gdocerous.Controllers
             return RedirectToAction("Index");
         }
 
+        [RequiresValidSession]
         public ActionResult PosterousSender()
         {
-            if (!Session.IsValidSession())
-                return RedirectToAction("Index");
-
             GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs();
             ViewBag.EmailAddress = docs.GetgdocerousMailAddress();
 
             return View();
         }
 
+        [RequiresValidSession]
         public ActionResult Folder(string folder)
         {
-            if (!Session.IsValidSession())
-                return RedirectToAction("Index");
-
             GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs();
-            dynamic folderobj = docs.GetFolder(folder);
+            var folderobj = docs.GetFolder(folder);
 
             ViewBag.Folder = string.IsNullOrEmpty(folder) ? "root" : folderobj.Title;
             ViewBag.Documents = docs.GetFolderContent(folderobj);
@@ -63,13 +59,11 @@ namespace gdocerous.Controllers
             return View();
         }
 
+        [RequiresValidSession]
         public ActionResult Document(string document)
         {
-            if (!Session.IsValidSession())
-                return RedirectToAction("Index");
-
             GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs();
-            dynamic documentobj = docs.GetDocument(document);
+            var documentobj = docs.GetDocument(document);
 
             ViewBag.Document = documentobj.Title;
             ViewBag.DocumentId = document;
@@ -85,15 +79,12 @@ namespace gdocerous.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost,RequiresValidSession]
         public ActionResult Send(string document, string tags, string type, string receivecopy)
         {
-            if (!Session.IsValidSession())
-                return RedirectToAction("Index");
-
             using (GoogleDocs docs = Session.GetGoogleDocsRepos().GetGoogleDocs())
             {
-                dynamic documentobj = docs.GetDocument(document);
+                var documentobj = docs.GetDocument(document);
 
                 using (PosterousRepository post = new PosterousRepository(docs.Email, docs.GetgdocerousMailAddress(), Session.GetGoogleDocsRepos().OAuthToken, docs.GetDocumentContent(document), documentobj.Title))
                 {
